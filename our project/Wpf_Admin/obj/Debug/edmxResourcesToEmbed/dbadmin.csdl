@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbAdminModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AttendanceDetail">
+    <Key>
+      <PropertyRef Name="Attendance_ID" />
+    </Key>
+    <Property Name="Attendance_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Person_ID" Type="Int32" />
+    <Property Name="Hours" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="AttendanceMaster_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AttendanceMaster" Relationship="Self.FK_AttendanceDetail_AttendanceMaster" FromRole="AttendanceDetail" ToRole="AttendanceMaster" />
+    <NavigationProperty Name="AttendanceMaster1" Relationship="Self.FK_AttendanceDetail_AttendanceMaster1" FromRole="AttendanceDetail" ToRole="AttendanceMaster" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_AttendanceDetail_Person" FromRole="AttendanceDetail" ToRole="Person" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_AttendanceDetail_Role" FromRole="AttendanceDetail" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="AttendanceMaster">
+    <Key>
+      <PropertyRef Name="AttendanceMaster_ID" />
+    </Key>
+    <Property Name="AttendanceMaster_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Person_ID" Type="Int32" Nullable="false" />
+    <Property Name="Trained_On" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AttendanceDetail" Relationship="Self.FK_AttendanceDetail_AttendanceMaster" FromRole="AttendanceMaster" ToRole="AttendanceDetail" />
+    <NavigationProperty Name="AttendanceDetail1" Relationship="Self.FK_AttendanceDetail_AttendanceMaster1" FromRole="AttendanceMaster" ToRole="AttendanceDetail" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_AttendanceMaster_Person" FromRole="AttendanceMaster" ToRole="Person" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_AttendanceMaster_Role" FromRole="AttendanceMaster" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Person_ID" />
+    </Key>
+    <Property Name="Person_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AttendanceDetail" Relationship="Self.FK_AttendanceDetail_Person" FromRole="Person" ToRole="AttendanceDetail" />
+    <NavigationProperty Name="AttendanceMaster" Relationship="Self.FK_AttendanceMaster_Person" FromRole="Person" ToRole="AttendanceMaster" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Role_Person" FromRole="Person" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_Type" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="AttendanceDetail" Relationship="Self.FK_AttendanceDetail_Role" FromRole="Role" ToRole="AttendanceDetail" />
+    <NavigationProperty Name="AttendanceMaster" Relationship="Self.FK_AttendanceMaster_Role" FromRole="Role" ToRole="AttendanceMaster" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Role_Person" FromRole="Role" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_AttendanceDetail_AttendanceMaster">
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AttendanceMaster">
+        <PropertyRef Name="AttendanceMaster_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="Attendance_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceDetail_AttendanceMaster1">
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AttendanceMaster">
+        <PropertyRef Name="AttendanceMaster_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="Attendance_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceDetail_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Person_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="Attendance_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceDetail_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="Attendance_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceMaster_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Person_ID" />
+      </Principal>
+      <Dependent Role="AttendanceMaster">
+        <PropertyRef Name="AttendanceMaster_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceMaster_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="AttendanceMaster">
+        <PropertyRef Name="AttendanceMaster_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Person_ID" />
+      </Principal>
+      <Dependent Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbAdminEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AttendanceDetails" EntityType="Self.AttendanceDetail" />
+    <EntitySet Name="AttendanceMasters" EntityType="Self.AttendanceMaster" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_AttendanceDetail_AttendanceMaster" Association="Self.FK_AttendanceDetail_AttendanceMaster">
+      <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceDetail_AttendanceMaster1" Association="Self.FK_AttendanceDetail_AttendanceMaster1">
+      <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceDetail_Person" Association="Self.FK_AttendanceDetail_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceDetail_Role" Association="Self.FK_AttendanceDetail_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceMaster_Person" Association="Self.FK_AttendanceMaster_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceMaster_Role" Association="Self.FK_AttendanceMaster_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role_Person" Association="Self.FK_Role_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AttendanceDetail">
+    <Key>
+      <PropertyRef Name="AttendanceDetail_ID" />
+    </Key>
+    <Property Name="AttendanceDetail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttendanceMaster_ID" Type="int" Nullable="false" />
+    <Property Name="Mentee_ID" Type="int" Nullable="false" />
+    <Property Name="Hours" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttendanceMaster">
+    <Key>
+      <PropertyRef Name="Attendance_ID" />
+    </Key>
+    <Property Name="Attendance_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mentor_ID" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Training_On" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Person_ID" />
+    </Key>
+    <Property Name="Person_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="Surname" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Contact" Type="int" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Role_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_Type" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_AttendanceDetail_AttendanceMaster">
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AttendanceMaster">
+        <PropertyRef Name="Attendance_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="AttendanceMaster_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceDetail_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Person_ID" />
+      </Principal>
+      <Dependent Role="AttendanceDetail">
+        <PropertyRef Name="AttendanceDetail_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttendanceMaster_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Person_ID" />
+      </Principal>
+      <Dependent Role="AttendanceMaster">
+        <PropertyRef Name="Mentor_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbAdminModelStoreContainer">
+    <EntitySet Name="AttendanceDetail" EntityType="Self.AttendanceDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AttendanceMaster" EntityType="Self.AttendanceMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AttendanceDetail_AttendanceMaster" Association="Self.FK_AttendanceDetail_AttendanceMaster">
+      <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceDetail_Person" Association="Self.FK_AttendanceDetail_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="AttendanceDetail" EntitySet="AttendanceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttendanceMaster_Person" Association="Self.FK_AttendanceMaster_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Role" Association="Self.FK_Person_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Person" EntitySet="Person" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

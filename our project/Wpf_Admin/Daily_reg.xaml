@@ -1,0 +1,67 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         x:Class="Wpf_Admin.Daily_reg"
+        Title="Daily_reg" Height="532.237" Width="603.759" ResizeMode="CanMinimize"  WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Loaded="getProfile">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="135*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="131*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.2"/>
+                <GradientStop Color="#FFFDBB30" Offset="0.8"/>
+                <GradientStop Color="#FF2B398B" Offset="0.2"/>
+                <GradientStop Color="#FF2B398B" Offset="0.5"/>
+                <GradientStop Color="#FFFDBB30" Offset="0.5"/>
+                <GradientStop Color="White" Offset="0.8"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="487*"/>
+        </Grid.ColumnDefinitions>
+        <Button Click="back_button_click" HorizontalAlignment="Left" Margin="26,35,0,0" VerticalAlignment="Top" Width="55" Height="38" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand">
+            <StackPanel>
+                <Label Content="&#xE0D5;" FontFamily="Segoe UI Symbol" Width="60" FontSize="24" Height="40" Foreground="#FF1721F1"/>
+            </StackPanel>
+        </Button>
+        <Label Content="Daily Register" HorizontalAlignment="Left" Margin="1,39,0,0" VerticalAlignment="Top" FontSize="18" Grid.Column="1" Height="34" Width="118"/>
+        <Label Content="Training on" HorizontalAlignment="Left" Margin="43,264,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.649,-0.615" Grid.RowSpan="3" Height="26" Width="74"/>
+        <Label Content="Mentor  *" HorizontalAlignment="Left" Margin="43,216,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="64" Foreground="#FFF"/>
+        <Label Content="Date  *" HorizontalAlignment="Left" Margin="43,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="48" Foreground="#FFF"/>
+        <DatePicker x:Name="dtpicker" HorizontalAlignment="Left" Margin="43,173,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="120" Height="24"/>
+        <ComboBox x:Name="cboMentor" HorizontalAlignment="Left" Text="Warren" Margin="43,242,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Height="22"/>
+
+
+        <Button Content="Logout" HorizontalAlignment="Left" Margin="210,206,0,0" VerticalAlignment="Top" Width="103" Height="38" Click="Button_Click_1" Grid.Column="1" Background="#FF2B398B" Foreground="#FFF" Grid.Row="2"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="361,206,0,0" VerticalAlignment="Top" Width="103" Height="38" Click="Button_Click" Grid.Column="1" Background="#FF2B398B" Foreground="#FFF" Grid.Row="2"/>
+        <Grid HorizontalAlignment="Left" Height="274" Margin="115,102,0,0" VerticalAlignment="Top" Width="334" ShowGridLines="True" Grid.Column="1" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="83*"/>
+                <ColumnDefinition Width="84*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="51*"/>
+                <RowDefinition Height="62*"/>
+                <RowDefinition Height="36*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Hours" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Top" Grid.Column="1" FontWeight="Bold" FontSize="14" Foreground="#FFF"/>
+            <Label Content="Name" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Top" Grid.Column="0" FontWeight="Bold" FontSize="14" Foreground="#FFF"/>
+            <ComboBox x:Name="cboxNames" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="146" Grid.Row="1" Height="29" SelectionChanged="ComboBox_SelectionChanged"/>
+            <TextBox  x:Name="txtHours" HorizontalAlignment="Left" Margin="10,10,0,10" TextWrapping="Wrap" Width="148" Grid.Column="1" Grid.Row="1" PreviewTextInput="txtHours_PreviewTextInput" MaxLength="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+        <Image x:Name="Image1_png" Margin="276,10,10,246" Source="Image1.png" Stretch="Fill" Grid.Column="1"/>
+        <Image Grid.Column="1" Margin="276,34,10,187" Source="dvt logo.png" Stretch="Fill"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Height="105" Margin="10,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Grid.ColumnSpan="2" BorderBrush="Black" Grid.Row="2"/>
+        <ListBox x:Name="ListBobx" HorizontalAlignment="Right" Height="106" Margin="0,152,291,0" Grid.Row="2" VerticalAlignment="Top" Width="303" RenderTransformOrigin="0.22,0.06" BorderBrush="Black" Grid.ColumnSpan="2"/>
+        <Label Content="Comments" x:Name="Comments"  HorizontalAlignment="Left" Margin="43,126,0,0" Grid.Row="2" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="71"/>
+
+    </Grid>
+</Window>
